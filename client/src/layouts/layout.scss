@@ -1,0 +1,117 @@
+.layout-main-content {
+    padding: 0 70px;
+}
+.chat-lobby-container {
+    padding: 15px 15px 15px 0;
+}
+.chat-lobby-container .sponsor-detail-chat-height {
+    min-height: inherit;
+}
+.chat-lobby-container .sponsor-detail-chat-height .parent-chat-container {
+    height: 100%;
+}
+.my-4.chat-overflow-hidden {
+    overflow: hidden;
+}
+.lounge-white-card {
+    // min-height: 700px;
+    min-height: auto;
+    height: calc(100vh - 220px);
+    overflow: auto;
+}
+.custom-lounge-card {
+    height: 175px;
+}
+.sponsor-chat-height .sponsor-detail-chat-height {
+    height: calc(100vh - 250px) !important;
+    min-height: inherit;
+}
+.row-custom-chat {
+    display: flex;
+    .col-custom-row-left {
+        flex: 1;
+        overflow: hidden;
+    }
+    .col-custom-row-chat {
+        flex: 0 0 400px;
+        margin-left: 15px;
+        // flex-shrink: 1;
+        max-width: 400px;
+    }
+}
+.sponsors-main-bg {
+    background-size: 100% 100%;
+}
+
+@media screen and (max-width: 992px) {
+    .row-custom-chat {
+        .col-custom-row-chat {
+            display: none !important;
+        }
+    }
+}
+
+.breakout-margin {
+    margin-bottom: 0 !important;
+    #welcome-background {
+        object-fit: cover;
+    }
+}
+
+.chat-layout-container {
+    z-index: 1;
+}
+@media (min-width: 1200px) {
+    .pageHeader .sponsor-btn-div {
+        max-width: 1150px;
+        margin: 0 auto;
+        flex: none;
+    }
+    .sponsor-chat-height .pageHeader {
+        .sponsor-btn-div.sponsor-chat-active {
+            max-width: none;
+            margin: 0 auto;
+            flex: none;
+        }
+    }
+}
+
+@media (min-width: 1600px) {
+    .pageHeader .sponsor-btn-div {
+        max-width: 1600px;
+        margin: 0 auto;
+        flex: none;
+    }
+}
+
+@media (max-height: 780px) {
+    .col-custom-row-left.chat-wrapper .setting-modal-class {
+        padding: 20px !important;
+    }
+    .breakout-margin {
+        margin-top: 0.5rem !important;
+    }
+    .col-custom-row-left.chat-wrapper .body-camera {
+        height: 260px;
+    }
+    .col-custom-row-chat .sponsor-detail-chat-height {
+        /*height: calc(100vh - 168px);*/
+    }
+    .col-custom-row-chat.chat-lobby-container .sponsor-detail-chat-height {
+        /*height: calc(100vh - 182px);*/
+    }
+}
+
+@media (min-height: 660px) and (max-height: 719px) {
+    .col-custom-row-left {
+        header {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.chat-wrapper .schedule-about {
+    > p {
+        margin-bottom: 0.5rem;
+    }
+}
