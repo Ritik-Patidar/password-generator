@@ -16,7 +16,7 @@ yarn.lock
 
 # misc
 .DS_Store
-.env
+!.env
 .env.dev
 .env.prod
 .env.stage
