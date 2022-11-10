@@ -7,7 +7,6 @@ import axios from 'axios';
 
 const instance = axios.create({
     baseURL: 'http://localhost:5555/api/',
-    // baseURL: 'https://devadmin.gujaratsamachar.com/api/',
     withCredentials: false,
     headers: {
         'Content-Type': 'application/json',
