@@ -5,6 +5,7 @@ import { Guardtypes, RoutePaths } from '../modules/consts/enum';
 const LandingPage = React.lazy(() => import('../pages/LandingPage'));
 const Dashboard = React.lazy(() => import('../pages/Dashboard'));
 const Login = React.lazy(() => import('../pages/Login'));
+const SignUp = React.lazy(() => import('../pages/SignUp'));
 const NotFound = React.lazy(() => import('../pages/Page404'));
 
 export interface IRouteProps extends RouteProps {
@@ -22,6 +23,12 @@ const routes: IRouteProps[] = [
     {
         path: RoutePaths.Login,
         component: Login,
+        exact: true,
+        guard: Guardtypes.Auth,
+    },
+    {
+        path: RoutePaths.SignUp,
+        component: SignUp,
         exact: true,
         guard: Guardtypes.Auth,
     },

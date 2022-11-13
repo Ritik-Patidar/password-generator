@@ -16,22 +16,20 @@ const RenderLayout = () => {
         <React.Fragment>
             <Suspense fallback={<LoadingSpinner withcoverbg="true" position="center" />}>
                 <ErrorBoundary>
-                    <div style={{ background: '#1E1E1E' }}>
-                        <div style={{ background: 'linear-gradient(180deg, #001329 0%, rgba(34, 34, 80, 0) 100%)' }}>
-                            {isLoggedIn ? (
-                                isMobileOnly ? (
-                                    <MobileLayout>
-                                        <PrepareRoutes />
-                                    </MobileLayout>
-                                ) : (
-                                    <Layout>
-                                        <PrepareRoutes />
-                                    </Layout>
-                                )
+                    <div>
+                        {isLoggedIn ? (
+                            isMobileOnly ? (
+                                <MobileLayout>
+                                    <PrepareRoutes />
+                                </MobileLayout>
                             ) : (
-                                <PrepareRoutes />
-                            )}
-                        </div>
+                                <Layout>
+                                    <PrepareRoutes />
+                                </Layout>
+                            )
+                        ) : (
+                            <PrepareRoutes />
+                        )}
                     </div>
                 </ErrorBoundary>
             </Suspense>

@@ -6,6 +6,7 @@ export enum Guardtypes {
 
 export enum RoutePaths {
     Login = '/login',
+    SignUp = '/signup',
     LandingPage = '/',
     Dashboard = '/home',
     NotFound = '/NotFound',

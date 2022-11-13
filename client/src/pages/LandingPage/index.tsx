@@ -5,12 +5,11 @@ import { RoutePaths } from '../../modules/consts/enum';
 import { useHistory } from 'react-router-dom';
 
 const LandingPage = () => {
-
     const history = useHistory();
 
     return (
-        <div className="h-screen w-full">
-            <div className="flex justify-end py-4 px-6">
+        <div className="h-full w-full">
+            <div className="flex justify-end pt-8 px-6">
                 <div className="mx-2">
                     <Button
                         sx={{
@@ -34,25 +33,44 @@ const LandingPage = () => {
                             '&:hover': {
                                 backgroundColor: '#FFF',
                             },
+                            borderRadius:'10px',
                         }}
                         variant="contained"
+                        onClick={() => history.push(RoutePaths.SignUp)}
                     >
                         Sign Up
                     </Button>
                 </div>
             </div>
-            <div className="grid md:grid-cols-2 items-center ">
-                <div>
-                    <img src={LandingPageImg} alt="" />
+            <div className="flex items-center">
+                <div className="flex-1">
+                    <img className='flex-1' src={LandingPageImg} alt="" />
                 </div>
-                <div className="">
-                    <p className="text-white sm:text-xl md:text-7xl text-right mr-10 leading-normal">
+                <div className="flex-1 ">
+                    <p className='text-white text-right mr-10' style={{ fontSize:"5vw" }}>
                         Discover{' '}
                         <b>
                             the <br />
                             Tools at one Place
                         </b>
                     </p>
+                </div>
+            </div>
+
+            <div className="">
+                <div className="grid grid-cols-4 h-60 mx-16 mb-16 mt-8">
+                    <div className="bg-[#313EF7] rounded-l-3xl" >
+
+                    </div>
+                    <div className="bg-[#FE7926]">
+
+                    </div>
+                    <div className="bg-[#E4DFFC]">
+
+                    </div>
+                    <div className="bg-[#196E86] rounded-r-3xl">
+
+                    </div>
                 </div>
             </div>
         </div>
