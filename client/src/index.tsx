@@ -20,7 +20,6 @@ export const Loading = () => (
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 const App = () => {
     interceptor();
-
     return (
         <Provider store={store}>
             <BrowserRouter>

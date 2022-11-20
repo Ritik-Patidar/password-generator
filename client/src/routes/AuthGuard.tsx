@@ -7,9 +7,7 @@ import { getIsAuth } from '../modules/selectors/auth';
 const AuthGuard = ({ children }: { children: JSX.Element }) => {
     const isAuth = useSelector(getIsAuth);
 
-    //!  Change landingPage route to the route of home of the application to redirect to home page after login/signup
-
-    return isAuth ? <Redirect to={RoutePaths.LandingPage} /> : children;
+    return isAuth ? <Redirect to={RoutePaths.Dashboard} /> : children;
 };
 
 export default AuthGuard;

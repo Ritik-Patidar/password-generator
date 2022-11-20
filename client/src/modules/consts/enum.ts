@@ -9,7 +9,7 @@ export enum RoutePaths {
     SignUp = '/signup',
     LandingPage = '/',
     Dashboard = '/home',
-    NotFound = '/NotFound',
+    NotFound = '/*',
     
 }
 

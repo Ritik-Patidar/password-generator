@@ -1,91 +1,157 @@
-import React, { useState } from 'react';
-
+import React, { useState, useCallback } from 'react';
+import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../modules/actions/auth';
 import { isAuthLoading } from '../../modules/selectors/auth';
-import { ErrorBoundary } from '../../components/ErrorBoundary';
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+import loginImg from '../../assets/images/loginImg.svg';
+import FilledInput from '@mui/material/FilledInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
+import { CustomizedButton } from '../../components/Button';
+import googleIcon from '../../assets/icons/googleIcon.svg';
+
+interface SignInType {
+    email: string;
+    password: string;
+}
+
+const inputTheme = {
+    backgroundColor: '#FFF',
+    borderRadius: '10px',
+    borderBottom: 'none',
+    '& .MuiInputBase-root , .MuiFilledInput-root': {
+        backgroundColor: '#FFF',
+        borderRadius: '10px',
+        borderBottom: 'none',
+        border: 'none',
+    },
+    '&:hover': {
+        backgroundColor: '#FFF',
+        borderBottom: 'none',
+    },
+    '&.Mui-focused': {
+        backgroundColor: '#FFF',
+        borderBottom: 'none',
+    },
+};
+
+const GoogleIcon = () => {
+    return (
+        <div className="bg-white rounded-md m-0">
+            <img src={googleIcon} />
+        </div>
+    );
+};
 
 const Login = () => {
-    const [enteredEmail, setEnteredEmail] = useState('');
-    const [enteredPassword, setEnteredPassword] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
-
     const isLoading = useSelector(isAuthLoading);
-
     const dispatch = useDispatch();
 
-    const passwordChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEnteredPassword(event.target.value);
-    };
+    const [values, setValues] = useState<SignInType>({
+        email: '',
+        password: '',
+    });
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
-    const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEnteredEmail(event.target.value);
-    };
-
-    const rememberMeChangeHandler = () => {
-        setRememberMe((prev) => !prev);
-    };
-
-    const formValidateHandler = (email: string, password: string): boolean => {
-        let passwordErr = '';
-        let emailErr = '';
-
-        if (!password) {
-            passwordErr = 'Password is required';
-            setPasswordError(passwordErr);
-        } else {
-            if (password.length < 8) {
-                passwordErr = 'Password must contain atleast 8 characters';
-                setPasswordError(passwordErr);
-            } else {
-                passwordErr = '';
-                setPasswordError(passwordErr);
-            }
-        }
-
-        if (!email) {
-            emailErr = 'Email is required';
-            setEmailError(emailErr);
-        } else {
-            const emailRegex =
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            if (!emailRegex.test(email.trim())) {
-                emailErr = 'Please enter a valid email address';
-                setEmailError(emailErr);
-            } else {
-                emailErr = '';
-                setEmailError(emailErr);
-            }
-        }
-
-        return !emailErr && !passwordErr;
-    };
-
-    const formSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleClickShowPassword = useCallback(() => {
+        setShowPassword(!showPassword);
+    }, [showPassword]);
+    const handleMouseDownPassword = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        if (formValidateHandler(enteredEmail, enteredPassword)) {
-            try {
-                await dispatch(login(enteredEmail, enteredPassword, rememberMe));
-            } catch (err: any) {
-                toast(err, {
-                    type: 'error',
-                    position: 'top-right',
-                    autoClose: 3000,
-                    pauseOnFocusLoss: true,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                });
-            }
-        }
-    };
+    }, []);
+
+    const handleInputChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const { name, value } = event.target;
+            setValues((prevState) => ({
+                ...prevState,
+                [name]: value,
+            }));
+        },
+        [values],
+    );
+
+    const handleFormSubmit = useCallback(
+        (event: any) => {
+            event.preventDefault();
+            dispatch(login(values.email,values.password));
+            // toast(`sign in ${JSON.stringify(values)}`);
+        },
+        [values],
+    );
 
     return (
-        <div>
-            <h1>Login</h1>
+        <div className="h-screen flex justify-center items-center">
+            <div className=" w-4/5 lg:w-3/5 h-4/5 flex">
+                <div className="bg-[#030F1B] h-full w-full flex items-center justify-center rounded-l-3xl">
+                    <img className="object-contain" src={loginImg} alt="" />
+                </div>
+                <div className="bg-[#D9D9D9] h-full w-full rounded-r-3xl">
+                    <div className="h-full w-4/6 flex flex-col justify-around mx-auto">
+                        <p className="text-3xl text-center my-6">Hello Again!</p>
+                        <div className="flex flex-col justify-between">
+                            <FormControl sx={{ my: 1 }} variant="filled">
+                                <InputLabel htmlFor="filled-adornment-password">Email</InputLabel>
+                                <FilledInput
+                                    id="outlined-basic"
+                                    type="email"
+                                    name="email"
+                                    value={values.email}
+                                    onChange={handleInputChange}
+                                    sx={inputTheme}
+                                    // inputProps={{ style: { WebkitBoxShadow: "white inset" } }}
+                                    endAdornment={<InputAdornment position="end">@</InputAdornment>}
+                                />
+                            </FormControl>
+                            <FormControl sx={{ my: 1 }} variant="filled">
+                                <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
+                                <FilledInput
+                                    id="outlined-basic"
+                                    type={showPassword ? 'text' : 'password'}
+                                    name="password"
+                                    value={values.password}
+                                    onChange={handleInputChange}
+                                    sx={inputTheme}
+                                    // inputProps={{ style: { WebkitBoxShadow: "0 0 0 0px white inset" } }}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                />
+                                <div>
+                                    <span className="float-right text-[#355BC0] mt-2 cursor-pointer">
+                                        Forgot Password?
+                                    </span>
+                                </div>
+                            </FormControl>
+                            <CustomizedButton sx={{ py: 1.5 }} variant="contained" onClick={handleFormSubmit}>
+                                Sign In
+                            </CustomizedButton>
+                            <p className="text-center text-lg my-2">OR</p>
+
+                            <CustomizedButton sx={{ py: 0.4 }} startIcon={<GoogleIcon />} variant="contained">
+                                Sign in with Google
+                            </CustomizedButton>
+                        </div>
+                        <p className="text-center text-lg my-4">
+                            Don’t have account yet? <span className="text-[#355BC0] cursor-pointer">Sign Up</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
