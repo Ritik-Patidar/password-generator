@@ -1,9 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { login } from '../../modules/actions/auth';
 import { isAuthLoading } from '../../modules/selectors/auth';
-import { toast } from 'react-toastify';
 import loginImg from '../../assets/images/loginImg.svg';
 import FilledInput from '@mui/material/FilledInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -14,6 +13,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import { CustomizedButton } from '../../components/Button';
 import googleIcon from '../../assets/icons/googleIcon.svg';
+import {RoutePaths} from '../../modules/consts/enum' ;
 
 interface SignInType {
     email: string;
@@ -51,6 +51,7 @@ const GoogleIcon = () => {
 const Login = () => {
     const isLoading = useSelector(isAuthLoading);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [values, setValues] = useState<SignInType>({
         email: '',
@@ -91,7 +92,7 @@ const Login = () => {
                 <div className="bg-[#030F1B] h-full w-full flex items-center justify-center rounded-l-3xl">
                     <img className="object-contain" src={loginImg} alt="" />
                 </div>
-                <div className="bg-[#D9D9D9] h-full w-full rounded-r-3xl">
+                <div className="bg-[#D9D9D9] h-full w-full rounded-r-3xl text-black">
                     <div className="h-full w-4/6 flex flex-col justify-around mx-auto">
                         <p className="text-3xl text-center my-6">Hello Again!</p>
                         <div className="flex flex-col justify-between">
@@ -104,7 +105,6 @@ const Login = () => {
                                     value={values.email}
                                     onChange={handleInputChange}
                                     sx={inputTheme}
-                                    // inputProps={{ style: { WebkitBoxShadow: "white inset" } }}
                                     endAdornment={<InputAdornment position="end">@</InputAdornment>}
                                 />
                             </FormControl>
@@ -117,7 +117,6 @@ const Login = () => {
                                     value={values.password}
                                     onChange={handleInputChange}
                                     sx={inputTheme}
-                                    // inputProps={{ style: { WebkitBoxShadow: "0 0 0 0px white inset" } }}
                                     endAdornment={
                                         <InputAdornment position="end">
                                             <IconButton
@@ -147,7 +146,7 @@ const Login = () => {
                             </CustomizedButton>
                         </div>
                         <p className="text-center text-lg my-4">
-                            Don’t have account yet? <span className="text-[#355BC0] cursor-pointer">Sign Up</span>
+                            Don’t have account yet? <span onClick={() => history.push(RoutePaths.SignUp)} className="text-[#355BC0] cursor-pointer">Sign Up</span>
                         </p>
                     </div>
                 </div>

@@ -2,8 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background: linear-gradient(180deg, #001329 0%, rgba(34, 34, 80, 0) 100%) , #1E1E1E   ;
+body {
+    background: linear-gradient(180deg, #001329 0%, rgba(34, 34, 80, 0) 100%), #1e1e1e;
     background-repeat: no-repeat;
     scroll-behavior: smooth;
+}
+
+.an {
+    animation-name: flo;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+}
+@keyframes flo {
+    50% {
+        transform: translateY(30px);
+    }
 }
