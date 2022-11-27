@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { signUp } from '../../modules/actions/auth';
 import { isAuthLoading } from '../../modules/selectors/auth';
 import loginImg from '../../assets/images/loginImg.svg';
@@ -43,7 +43,6 @@ const inputTheme = {
 const SignUp = () => {
     const isLoading = useSelector(isAuthLoading);
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const NAME = 'name';
     const EMAIL = 'email';
@@ -79,9 +78,9 @@ const SignUp = () => {
     const handleFormSubmit = useCallback(
         (event: any) => {
             event.preventDefault();
-            if(values[PASSWORD] === confirmPassword) dispatch(signUp(values));
+            if (values[PASSWORD] === confirmPassword) dispatch(signUp(values));
         },
-        [values,confirmPassword],
+        [values, confirmPassword],
     );
 
     return (
@@ -175,12 +174,9 @@ const SignUp = () => {
                             </div>
                             <p className="text-center text-lg my-4">
                                 Have an account?{' '}
-                                <span
-                                    onClick={() => history.push(RoutePaths.Login)}
-                                    className="text-[#355BC0] cursor-pointer"
-                                >
+                                <Link to={RoutePaths.Login} className="text-[#355BC0] cursor-pointer">
                                     Sign In
-                                </span>
+                                </Link>
                             </p>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { login } from '../../modules/actions/auth';
 import { isAuthLoading } from '../../modules/selectors/auth';
 import loginImg from '../../assets/images/loginImg.svg';
@@ -13,7 +13,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import { CustomizedButton } from '../../components/Button';
 import googleIcon from '../../assets/icons/googleIcon.svg';
-import {RoutePaths} from '../../modules/consts/enum' ;
+import { RoutePaths } from '../../modules/consts/enum';
 
 interface SignInType {
     email: string;
@@ -51,7 +51,6 @@ const GoogleIcon = () => {
 const Login = () => {
     const isLoading = useSelector(isAuthLoading);
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const [values, setValues] = useState<SignInType>({
         email: '',
@@ -80,8 +79,7 @@ const Login = () => {
     const handleFormSubmit = useCallback(
         (event: any) => {
             event.preventDefault();
-            dispatch(login(values.email,values.password));
-            // toast(`sign in ${JSON.stringify(values)}`);
+            dispatch(login(values.email, values.password));
         },
         [values],
     );
@@ -146,7 +144,10 @@ const Login = () => {
                             </CustomizedButton>
                         </div>
                         <p className="text-center text-lg my-4">
-                            Don’t have account yet? <span onClick={() => history.push(RoutePaths.SignUp)} className="text-[#355BC0] cursor-pointer">Sign Up</span>
+                            Don’t have account yet?{' '}
+                            <Link to={RoutePaths.SignUp} className="text-[#355BC0] cursor-pointer">
+                                Sign Up
+                            </Link>
                         </p>
                     </div>
                 </div>
