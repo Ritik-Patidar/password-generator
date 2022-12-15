@@ -5,9 +5,7 @@ const Dashboard = () => {
     return (
         <>
             <Header />
-            <div className="container">
-                
-            </div>
+            
         </>
     );
 };
