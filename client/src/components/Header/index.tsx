@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAuthUser } from '../../modules/selectors/auth';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import Button from '@mui/material/Button';
+import { logOut } from '../../modules/reducers/authReducer';
 
 const Header = () => {
+    const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const user = useSelector(getAuthUser);
+
+    const onLogout = () => dispatch(logOut());
 
     return (
         <div className="relative bg-transparent">
@@ -44,17 +53,29 @@ const Header = () => {
                         </button>
                     </div>
                     <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-                        <p className="whitespace-nowrap text-base font-medium text-white mr-6">user-email@gmail.com</p>
-                        <a href="#" className="whitespace-nowrap text-base font-medium text-white hover:text-gray-500">
-                            Log Out
-                        </a>
+                        <p className="whitespace-nowrap text-base font-medium text-white mr-6">{user?.user?.email}</p>
+                        <Button
+                            className="hover:text-gray-400"
+                            variant="text"
+                            sx={{
+                                fontSize: '1rem',
+                                lineHeight: '1.5rem',
+                                whiteSpace: 'nowrap',
+                                fontWeight: '500',
+                                color: 'white',
+                                textTransform: 'none',
+                            }}
+                            onClick={onLogout}
+                        >
+                            Log Out <LogoutRoundedIcon sx={{ ml: 1 }} />
+                        </Button>
                     </div>
                 </div>
             </div>
 
             {isOpen && (
-                <div className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden">
-                    <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                <div className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden z-10">
+                    <div className="rounded-lg bg-primary-lighter shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="px-5 pt-5 pb-6">
                             <div className="flex items-center justify-between">
                                 <div>
@@ -68,7 +89,7 @@ const Header = () => {
                                     <button
                                         onClick={() => setIsOpen(false)}
                                         type="button"
-                                        className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                                        className="inline-flex items-center justify-center rounded-md bg-primary-lighter p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                                     >
                                         <span className="sr-only">Close menu</span>
 
@@ -94,13 +115,13 @@ const Header = () => {
                         <div className="space-y-6 py-6 px-5">
                             <div>
                                 <p className="my-6 text-center text-base font-medium text-gray-500">
-                                    Logged in as : <span className="text-black">user-email@gmail.com </span>
+                                    Logged in as : <span className="text-black">{user?.user?.email}</span>
                                 </p>
                                 <a
-                                    href="#"
+                                    onClick={onLogout}
                                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                                 >
-                                    Log Out
+                                    Log Out <LogoutRoundedIcon sx={{ ml: 1 }} />
                                 </a>
                             </div>
                         </div>

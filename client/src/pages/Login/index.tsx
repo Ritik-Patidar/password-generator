@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { login } from '../../modules/actions/auth';
+import { login, SignInType } from '../../modules/reducers/authReducer';
 import { isAuthLoading } from '../../modules/selectors/auth';
 import loginImg from '../../assets/images/loginImg.svg';
 import FilledInput from '@mui/material/FilledInput';
@@ -14,11 +14,6 @@ import IconButton from '@mui/material/IconButton';
 import { CustomizedButton } from '../../components/Button';
 import googleIcon from '../../assets/icons/googleIcon.svg';
 import { RoutePaths } from '../../modules/consts/enum';
-
-interface SignInType {
-    email: string;
-    password: string;
-}
 
 const inputTheme = {
     backgroundColor: '#FFF',
@@ -79,7 +74,7 @@ const Login = () => {
     const handleFormSubmit = useCallback(
         (event: any) => {
             event.preventDefault();
-            dispatch(login(values.email, values.password));
+            dispatch(login(values));
         },
         [values],
     );

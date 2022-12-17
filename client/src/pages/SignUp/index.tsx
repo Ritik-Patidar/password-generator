@@ -1,8 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { signUp } from '../../modules/actions/auth';
-import { isAuthLoading } from '../../modules/selectors/auth';
+import { signUp , SignUpType } from '../../modules/reducers/authReducer';
 import loginImg from '../../assets/images/loginImg.svg';
 import FilledInput from '@mui/material/FilledInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -13,12 +12,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import { CustomizedButton } from '../../components/Button';
 import { RoutePaths } from '../../modules/consts/enum';
-
-interface SignUpType {
-    name: string;
-    email: string;
-    password: string;
-}
 
 const inputTheme = {
     backgroundColor: '#FFF',
@@ -41,7 +34,6 @@ const inputTheme = {
 };
 
 const SignUp = () => {
-    const isLoading = useSelector(isAuthLoading);
     const dispatch = useDispatch();
 
     const NAME = 'name';
@@ -58,10 +50,16 @@ const SignUp = () => {
     const [values, setValues] = useState<SignUpType>({ ...initialValue });
     const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [showCPassword, setShowCPassword] = useState<boolean>(false);
 
     const handleClickShowPassword = useCallback(() => {
         setShowPassword(!showPassword);
     }, [showPassword]);
+    
+    const handleClickShowCPassword = useCallback(() => {
+        setShowCPassword(!showCPassword);
+    }, [showCPassword]);
+
     const handleMouseDownPassword = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     }, []);
@@ -145,7 +143,7 @@ const SignUp = () => {
                                     <InputLabel htmlFor="filled-adornment-password">Confirm Password</InputLabel>
                                     <FilledInput
                                         id="outlined-basic"
-                                        type={showPassword ? 'text' : 'password'}
+                                        type={showCPassword ? 'text' : 'password'}
                                         name={CONFIRM_PASSWORD}
                                         value={confirmPassword}
                                         onChange={handleInputChange}
@@ -154,7 +152,7 @@ const SignUp = () => {
                                             <InputAdornment position="end">
                                                 <IconButton
                                                     aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
+                                                    onClick={handleClickShowCPassword}
                                                     onMouseDown={handleMouseDownPassword}
                                                     edge="end"
                                                 >
