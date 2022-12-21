@@ -47,6 +47,31 @@ components:
         message:
           type: string
 
+    SavedPassword:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        site:
+          type: string
+        username:
+          type: string
+      example:
+        id: 5ebac534954b54139806c112
+        userId: 5ebac534954b54139806c112
+        site: amazon.in
+        username: fake@example.com
+
+    ShowSavedPassword:
+      type: object
+      properties:
+        password:
+          type: string
+      example:
+        password: password@123
+
   responses:
     DuplicateEmail:
       description: Email already taken
@@ -90,3 +115,5 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+
+  
