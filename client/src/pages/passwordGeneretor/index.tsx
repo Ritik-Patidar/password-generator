@@ -9,6 +9,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import CachedIcon from '@mui/icons-material/Cached';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Tooltip from '@mui/material/Tooltip';
 
 const btn = {
     backgroundColor: 'white',
@@ -32,6 +33,10 @@ const symbol = '!@#$%^&*()';
 
 const PasswordGenerator = () => {
     const [characterLength, setCharacterLength] = useState<number>(8);
+    const [tooltip, settooltip] = useState({
+        open: false,
+        content: 'Copy',
+    });
     const [generatedPass, setGeneratedPass] = useState('');
     const [includesCases, setIncludesCases] = useState({
         upperCase: true,
@@ -71,6 +76,22 @@ const PasswordGenerator = () => {
         setGeneratedPass(e.target.value);
     };
 
+    const handleOnTooltipClose = () => {
+        settooltip((prev) => ({
+            open: false,
+            content: 'Copy',
+        }));
+    };
+
+    const copyToClipBoard = () => {
+        if (!generatedPass.length) return;
+        navigator.clipboard.writeText(generatedPass);
+        settooltip(() => ({
+            open: true,
+            content: 'Copied',
+        }));
+    };
+
     const { upperCase, lowerCase, numbers, symbols } = includesCases;
     const error = [upperCase, lowerCase, numbers, symbols].filter((x) => x).length < 1;
 
@@ -88,11 +109,17 @@ const PasswordGenerator = () => {
                                 value={generatedPass}
                                 onChange={handlePasswordChange}
                             />
-                            <IconButton sx={{ m: 0, p: 0 }}>
-                                <div className="flex justify-center items-center rounded-full text-gray-800 p-1.5 bg-primary-lighter">
-                                    <CopyAllIcon fontSize="small" />
-                                </div>
-                            </IconButton>
+                            <Tooltip title={tooltip.content} onClose={handleOnTooltipClose}>
+                                <IconButton
+                                    disabled={!generatedPass.length}
+                                    sx={{ m: 0, p: 0 }}
+                                    onClick={copyToClipBoard}
+                                >
+                                    <div className="flex justify-center items-center rounded-full text-gray-800 p-1.5 bg-primary-lighter">
+                                        <CopyAllIcon fontSize="small" />
+                                    </div>
+                                </IconButton>
+                            </Tooltip>
                         </div>
 
                         <div className="flex flex-col items-center rounded-3xl border border-br bg-white w-full p-2">
@@ -108,7 +135,7 @@ const PasswordGenerator = () => {
                             </div>
                             <div className="w-full px-3 mt-2">
                                 <Slider
-                                    defaultValue={8}
+                                    defaultValue={10}
                                     size="small"
                                     min={1}
                                     value={characterLength}
