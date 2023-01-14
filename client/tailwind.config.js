@@ -11,6 +11,9 @@ module.exports = {
           DEFAULT: '#2B2B2B',
           dark: '#001329',
         },
+        br:{
+          DEFAULT:'#355BC0'
+        }
       },
     },
   },

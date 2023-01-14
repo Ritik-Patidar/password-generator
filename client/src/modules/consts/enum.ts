@@ -10,6 +10,7 @@ export enum RoutePaths {
     LandingPage = '/',
     Dashboard = '/home',
     NotFound = '/*',
+    PasswordGenerator = '/password-generator',
     
 }
 

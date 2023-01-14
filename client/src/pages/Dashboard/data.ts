@@ -1,8 +1,10 @@
+import { RoutePaths } from "../../modules/consts/enum"
+
 export const cardDetails = [
     {
-        title:"Title 1",
+        title:"Password Generator",
         description:"",
-        routes:"",
+        routes: RoutePaths.PasswordGenerator,
         bgClass:"card-bg-1",
 
     },
