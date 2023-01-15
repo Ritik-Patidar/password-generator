@@ -10,6 +10,7 @@ import Checkbox from '@mui/material/Checkbox';
 import CachedIcon from '@mui/icons-material/Cached';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Tooltip from '@mui/material/Tooltip';
+import SavePassModal from './savePassModal';
 
 const btn = {
     backgroundColor: 'white',
@@ -33,6 +34,7 @@ const symbol = '!@#$%^&*()';
 
 const PasswordGenerator = () => {
     const [characterLength, setCharacterLength] = useState<number>(8);
+    const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
     const [tooltip, settooltip] = useState({
         open: false,
         content: 'Copy',
@@ -77,7 +79,7 @@ const PasswordGenerator = () => {
     };
 
     const handleOnTooltipClose = () => {
-        settooltip((prev) => ({
+        settooltip(() => ({
             open: false,
             content: 'Copy',
         }));
@@ -219,14 +221,18 @@ const PasswordGenerator = () => {
                                 </ButtonBase>
                             </div>
                         </div>
-
                         <div className="flex justify-between">
-                            <ButtonBase sx={btn}>Save Password</ButtonBase>
+                            <ButtonBase onClick={() => setIsSaveModalOpen(true)} sx={btn}>Save Password</ButtonBase>
                             <ButtonBase sx={btn}>See All Password</ButtonBase>
                         </div>
                     </div>
                 </div>
             </div>
+            <SavePassModal
+              open={isSaveModalOpen}
+              password={generatedPass}
+              handleClose={() => setIsSaveModalOpen(false)}
+            />
         </>
     );
 };

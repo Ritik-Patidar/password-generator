@@ -4,36 +4,10 @@ import { Link } from 'react-router-dom';
 import { login, SignInType } from '../../modules/reducers/authReducer';
 import { isAuthLoading } from '../../modules/selectors/auth';
 import loginImg from '../../assets/images/loginImg.svg';
-import FilledInput from '@mui/material/FilledInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import IconButton from '@mui/material/IconButton';
 import { CustomizedButton } from '../../components/Button';
 import googleIcon from '../../assets/icons/googleIcon.svg';
 import { RoutePaths } from '../../modules/consts/enum';
-
-const inputTheme = {
-    backgroundColor: '#FFF',
-    borderRadius: '10px',
-    borderBottom: 'none',
-    '& .MuiInputBase-root , .MuiFilledInput-root': {
-        backgroundColor: '#FFF',
-        borderRadius: '10px',
-        borderBottom: 'none',
-        border: 'none',
-    },
-    '&:hover': {
-        backgroundColor: '#FFF',
-        borderBottom: 'none',
-    },
-    '&.Mui-focused': {
-        backgroundColor: '#FFF',
-        borderBottom: 'none',
-    },
-};
+import StyledInput from '../../components/StyledInput';
 
 const GoogleIcon = () => {
     return (
@@ -47,18 +21,14 @@ const Login = () => {
     const isLoading = useSelector(isAuthLoading);
     const dispatch = useDispatch();
 
-    const [values, setValues] = useState<SignInType>({
-        email: '',
-        password: '',
-    });
-    const [showPassword, setShowPassword] = useState<boolean>(false);
+    const EMAIL = 'email';
+    const PASSWORD = 'password';
 
-    const handleClickShowPassword = useCallback(() => {
-        setShowPassword(!showPassword);
-    }, [showPassword]);
-    const handleMouseDownPassword = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    }, []);
+    const initialValue = {
+        [EMAIL]: '',
+        [PASSWORD]: '',
+    };
+    const [values, setValues] = useState<SignInType>(initialValue);
 
     const handleInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,46 +59,23 @@ const Login = () => {
                     <div className="h-full w-4/6 flex flex-col justify-around mx-auto">
                         <p className="text-3xl text-center my-6">Hello Again!</p>
                         <div className="flex flex-col justify-between">
-                            <FormControl sx={{ my: 1 }} variant="filled">
-                                <InputLabel htmlFor="filled-adornment-password">Email</InputLabel>
-                                <FilledInput
-                                    id="outlined-basic"
-                                    type="email"
-                                    name="email"
-                                    value={values.email}
-                                    onChange={handleInputChange}
-                                    sx={inputTheme}
-                                    endAdornment={<InputAdornment position="end">@</InputAdornment>}
-                                />
-                            </FormControl>
-                            <FormControl sx={{ my: 1 }} variant="filled">
-                                <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
-                                <FilledInput
-                                    id="outlined-basic"
-                                    type={showPassword ? 'text' : 'password'}
-                                    name="password"
-                                    value={values.password}
-                                    onChange={handleInputChange}
-                                    sx={inputTheme}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
-                                                onMouseDown={handleMouseDownPassword}
-                                                edge="end"
-                                            >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                />
-                                <div>
-                                    <span className="float-right text-[#355BC0] mt-2 cursor-pointer">
-                                        Forgot Password?
-                                    </span>
-                                </div>
-                            </FormControl>
+                            <StyledInput
+                                name={EMAIL}
+                                value={values[EMAIL]}
+                                onChange={handleInputChange}
+                                label="Email"
+                                type="email"
+                            />
+                            <StyledInput
+                                name={PASSWORD}
+                                value={values[PASSWORD]}
+                                onChange={handleInputChange}
+                                label="Password"
+                                type="password"
+                            />
+                            <div className="mb-4">
+                                <span className="float-right text-[#355BC0] mt-2 cursor-pointer">Forgot Password?</span>
+                            </div>
                             <CustomizedButton sx={{ py: 1.5 }} variant="contained" onClick={handleFormSubmit}>
                                 Sign In
                             </CustomizedButton>

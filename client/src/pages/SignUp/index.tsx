@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { signUp , SignUpType } from '../../modules/reducers/authReducer';
+import { signUp, SignUpType } from '../../modules/reducers/authReducer';
 import loginImg from '../../assets/images/loginImg.svg';
 import FilledInput from '@mui/material/FilledInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -12,6 +12,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import { CustomizedButton } from '../../components/Button';
 import { RoutePaths } from '../../modules/consts/enum';
+import StyledInput from '../../components/StyledInput';
 
 const inputTheme = {
     backgroundColor: '#FFF',
@@ -55,7 +56,7 @@ const SignUp = () => {
     const handleClickShowPassword = useCallback(() => {
         setShowPassword(!showPassword);
     }, [showPassword]);
-    
+
     const handleClickShowCPassword = useCallback(() => {
         setShowCPassword(!showCPassword);
     }, [showCPassword]);
@@ -92,76 +93,34 @@ const SignUp = () => {
                         <div className="h-full w-4/6 flex flex-col justify-around mx-auto">
                             <p className="text-3xl text-center my-6">Sign Up</p>
                             <div className="flex flex-col justify-between">
-                                <FormControl sx={{ my: 1 }} variant="filled">
-                                    <InputLabel htmlFor="filled-adornment-password">Name</InputLabel>
-                                    <FilledInput
-                                        id="outlined-basic"
-                                        type="text"
-                                        name={NAME}
-                                        value={values[NAME]}
-                                        onChange={handleInputChange}
-                                        sx={inputTheme}
-                                        endAdornment={<InputAdornment position="end">Aa</InputAdornment>}
-                                    />
-                                </FormControl>
-                                <FormControl sx={{ my: 1 }} variant="filled">
-                                    <InputLabel htmlFor="filled-adornment-password">Email</InputLabel>
-                                    <FilledInput
-                                        id="outlined-basic"
-                                        type="email"
-                                        name={EMAIL}
-                                        value={values[EMAIL]}
-                                        onChange={handleInputChange}
-                                        sx={inputTheme}
-                                        endAdornment={<InputAdornment position="end">@</InputAdornment>}
-                                    />
-                                </FormControl>
-                                <FormControl sx={{ my: 1 }} variant="filled">
-                                    <InputLabel htmlFor="filled-adornment-password">New Password</InputLabel>
-                                    <FilledInput
-                                        id="outlined-basic"
-                                        type={showPassword ? 'text' : 'password'}
-                                        name={PASSWORD}
-                                        value={values[PASSWORD]}
-                                        onChange={handleInputChange}
-                                        sx={inputTheme}
-                                        endAdornment={
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
-                                                >
-                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        }
-                                    />
-                                </FormControl>
-                                <FormControl sx={{ my: 1 }} variant="filled">
-                                    <InputLabel htmlFor="filled-adornment-password">Confirm Password</InputLabel>
-                                    <FilledInput
-                                        id="outlined-basic"
-                                        type={showCPassword ? 'text' : 'password'}
-                                        name={CONFIRM_PASSWORD}
-                                        value={confirmPassword}
-                                        onChange={handleInputChange}
-                                        sx={inputTheme}
-                                        endAdornment={
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowCPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
-                                                >
-                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        }
-                                    />
-                                </FormControl>
+                                <StyledInput
+                                    name={NAME}
+                                    value={values[NAME]}
+                                    onChange={handleInputChange}
+                                    label="Name"
+                                    type="text"
+                                />
+                                <StyledInput
+                                    name={EMAIL}
+                                    value={values[EMAIL]}
+                                    onChange={handleInputChange}
+                                    label="Email"
+                                    type="email"
+                                />
+                                <StyledInput
+                                    name={PASSWORD}
+                                    value={values[PASSWORD]}
+                                    onChange={handleInputChange}
+                                    label="New Password"
+                                    type="password"
+                                />
+                                <StyledInput
+                                    name={CONFIRM_PASSWORD}
+                                    value={confirmPassword}
+                                    onChange={handleInputChange}
+                                    label="Confirm Password"
+                                    type="password"
+                                />
                                 <CustomizedButton
                                     sx={{ py: 1.5, my: 1 }}
                                     variant="contained"
