@@ -11,6 +11,7 @@ export enum RoutePaths {
     Dashboard = '/home',
     NotFound = '/*',
     PasswordGenerator = '/password-generator',
+    ShowAllPasswords = '/all-passwords',
     
 }
 

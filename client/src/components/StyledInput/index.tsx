@@ -30,11 +30,11 @@ const inputTheme = {
             border: 'none',
         },
     },
-    '& .MuiFilledInput-input:-webkit-autofill':{
-        borderRadius:'inherit !important',
+    '& .MuiFilledInput-input:-webkit-autofill': {
+        borderRadius: 'inherit !important',
     },
-    '& .MuiFilledInput-underline':{
-        borderBottom: '0px solid white !important'
+    '& .MuiFilledInput-underline': {
+        borderBottom: '0px solid white !important',
     },
     '&:hover': {
         backgroundColor: '#FFF',
@@ -68,7 +68,25 @@ const StyledInput = ({ name, type = 'text', label, value, onChange }: StyledInpu
                         onChange={onChange}
                         sx={inputTheme}
                         disableUnderline={true}
+                        inputProps={{
+                            autoComplete: 'off',
+                        }}
                         endAdornment={<InputAdornment position="end">@</InputAdornment>}
+                    />
+                );
+
+            case 'website':
+                return (
+                    <FilledInput
+                        id="outlined-basic"
+                        type="text"
+                        name={name}
+                        value={value}
+                        onChange={onChange}
+                        sx={inputTheme}
+                        autoComplete="off"
+                        disableUnderline={true}
+                        endAdornment={<InputAdornment position="end">.com</InputAdornment>}
                     />
                 );
             case 'password':
@@ -81,6 +99,7 @@ const StyledInput = ({ name, type = 'text', label, value, onChange }: StyledInpu
                         onChange={onChange}
                         sx={inputTheme}
                         disableUnderline={true}
+                        autoComplete="off"
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -105,6 +124,7 @@ const StyledInput = ({ name, type = 'text', label, value, onChange }: StyledInpu
                         value={value}
                         onChange={onChange}
                         sx={inputTheme}
+                        autoComplete="off"
                         disableUnderline={true}
                         endAdornment={<InputAdornment position="end">Aa</InputAdornment>}
                     />
@@ -114,8 +134,8 @@ const StyledInput = ({ name, type = 'text', label, value, onChange }: StyledInpu
 
     return (
         <>
-            <FormControl  sx={{ my: 1 }} variant="filled">
-                <InputLabel >{label}</InputLabel>
+            <FormControl sx={{ my: 1 }} variant="filled">
+                <InputLabel>{label}</InputLabel>
                 {getInputField({ type, name, value, onChange })}
             </FormControl>
         </>

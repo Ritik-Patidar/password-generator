@@ -1,9 +1,11 @@
 import api from '../api/config';
+import { tokenService } from './token.service';
+import history from './history' ;
+import { RoutePaths } from '../modules/consts/enum';
 
 export function interceptor() {
     api.interceptors.request.use((request) => {
-        const user = localStorage.getItem('loggedInUserInfo') || JSON.stringify({});
-        const token = JSON.parse(user)?.token;
+        const token = tokenService.getLocalAccessToken();
         if (token) {
             request.headers = request.headers || {};
             request.headers.Authorization = `Bearer ${token}`;
@@ -11,4 +13,30 @@ export function interceptor() {
 
         return request;
     });
+
+    api.interceptors.response.use(
+        (response) => response,
+        async (error) => {
+            console.log('interceptor ---> ', error);
+            const originalConfig = error.config;
+            const refreshToken = tokenService.getLocalRefreshToken();
+            if (
+                refreshToken &&
+                error?.response?.data?.code === 401 &&
+                originalConfig._retry !== true &&
+                originalConfig.url !== '/auth/refresh-tokens'
+            ) {
+                originalConfig._retry = true;
+                try {
+                    const res = await api.post('/auth/refresh-tokens', { refreshToken });
+                    tokenService.updateToken(res.data);
+                    return api(originalConfig);
+                } catch (err) {
+                    history.replace(RoutePaths.Login)
+                    return Promise.reject(err);
+                }
+            }
+            return Promise.reject(error);
+        },
+    );
 }

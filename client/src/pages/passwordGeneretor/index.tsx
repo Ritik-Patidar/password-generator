@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, IconButton, ButtonBase } from '@mui/material';
+import React, { useState, useCallback } from 'react';
+import { IconButton, ButtonBase } from '@mui/material';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
 import Slider from '@mui/material/Slider';
 import FormControl from '@mui/material/FormControl';
@@ -11,6 +11,8 @@ import CachedIcon from '@mui/icons-material/Cached';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Tooltip from '@mui/material/Tooltip';
 import SavePassModal from './savePassModal';
+import { useHistory } from 'react-router-dom';
+import { RoutePaths } from '../../modules/consts/enum';
 
 const btn = {
     backgroundColor: 'white',
@@ -33,6 +35,7 @@ const lowerApla = 'abcdefghijklmnopqrstuvwxyz';
 const symbol = '!@#$%^&*()';
 
 const PasswordGenerator = () => {
+    const history = useHistory();
     const [characterLength, setCharacterLength] = useState<number>(8);
     const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
     const [tooltip, settooltip] = useState({
@@ -47,19 +50,25 @@ const PasswordGenerator = () => {
         symbols: true,
     });
 
-    const handleCharLength = (e: any) => {
-        setCharacterLength(e.target.value);
-    };
+    const handleCharLength = useCallback(
+        (e: any) => {
+            setCharacterLength(e.target.value);
+        },
+        [characterLength],
+    );
 
-    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, checked } = e.target;
-        setIncludesCases((prevState) => ({
-            ...prevState,
-            [name]: checked,
-        }));
-    };
+    const handleCheckboxChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            const { name, checked } = e.target;
+            setIncludesCases((prevState) => ({
+                ...prevState,
+                [name]: checked,
+            }));
+        },
+        [includesCases],
+    );
 
-    const generateRandomPass = () => {
+    const generateRandomPass = useCallback(() => {
         let chars = '';
         if (includesCases.upperCase) chars += upperAlpa;
         if (includesCases.lowerCase) chars += lowerApla;
@@ -72,27 +81,30 @@ const PasswordGenerator = () => {
             password += chars.substring(randomNumber, randomNumber + 1);
         }
         setGeneratedPass(password);
-    };
+    }, [includesCases]);
 
-    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setGeneratedPass(e.target.value);
-    };
+    const handlePasswordChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setGeneratedPass(e.target.value);
+        },
+        [generatedPass],
+    );
 
-    const handleOnTooltipClose = () => {
+    const handleOnTooltipClose = useCallback(() => {
         settooltip(() => ({
             open: false,
             content: 'Copy',
         }));
-    };
+    }, []);
 
-    const copyToClipBoard = () => {
+    const copyToClipBoard = useCallback(() => {
         if (!generatedPass.length) return;
         navigator.clipboard.writeText(generatedPass);
         settooltip(() => ({
             open: true,
             content: 'Copied',
         }));
-    };
+    }, []);
 
     const { upperCase, lowerCase, numbers, symbols } = includesCases;
     const error = [upperCase, lowerCase, numbers, symbols].filter((x) => x).length < 1;
@@ -222,16 +234,18 @@ const PasswordGenerator = () => {
                             </div>
                         </div>
                         <div className="flex justify-between">
-                            <ButtonBase onClick={() => setIsSaveModalOpen(true)} sx={btn}>Save Password</ButtonBase>
-                            <ButtonBase sx={btn}>See All Password</ButtonBase>
+                            <ButtonBase onClick={() => setIsSaveModalOpen(true)} sx={btn}>
+                                Save Password
+                            </ButtonBase>
+                            <ButtonBase onClick={() => history.push(RoutePaths.ShowAllPasswords)} sx={btn}>See All Password</ButtonBase>
                         </div>
                     </div>
                 </div>
             </div>
             <SavePassModal
-              open={isSaveModalOpen}
-              password={generatedPass}
-              handleClose={() => setIsSaveModalOpen(false)}
+                open={isSaveModalOpen}
+                password={generatedPass}
+                handleClose={() => setIsSaveModalOpen(false)}
             />
         </>
     );

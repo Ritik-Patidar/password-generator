@@ -8,8 +8,13 @@ const createPassword = async (data) => {
 };
 
 const queryAllPasswords = async (filter, options) => {
-  const passwords = await SavedPassword.paginate(filter, options);
-  return passwords;
+  // const passwords = await SavedPassword.paginate(filter, options);
+  const passwords = await SavedPassword.find(filter);
+  // return passwords
+  return {
+    results : passwords,
+    totalResults: passwords.length
+  };
 };
 
 const getPasswordById = async (id) => {

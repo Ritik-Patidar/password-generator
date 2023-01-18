@@ -1,25 +1,61 @@
-import React, {useState} from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Button from '@mui/material/Button';
-
-interface SavePassModalProps{
-    open:boolean;
+import { StyledButton } from '../../../components/Button';
+import StyledInput from '../../../components/StyledInput';
+import { DialogTitle } from '@mui/material';
+import { savePassword, SavePassType } from '../../../modules/reducers/passwordReducer';
+import { useDispatch } from 'react-redux';
+interface SavePassModalProps {
+    open: boolean;
     password: string;
-    handleClose : () => void
-} 
-
-const modalStyle = {
-    '& .MuiPaper-root':{
-        borderRadius: '24px',
-        backgroundColor: '#D9D9D9'
-    }
+    handleClose: () => void;
 }
 
-const SavePassModal = ({open , password, handleClose}:SavePassModalProps) => {
+const modalStyle = {
+    '& .MuiPaper-root': {
+        borderRadius: '24px',
+        backgroundColor: '#D9D9D9',
+        width: '800px',
+        height: '400px',
+    },
+};
+
+const SavePassModal = ({ open, password, handleClose }: SavePassModalProps) => {
+    const dispatch = useDispatch();
+    const WEBSITE = 'site';
+    const USERNAME = 'username';
+    const PASSWORD = 'password';
+    const initialValue = {
+        [WEBSITE]: '',
+        [USERNAME]: '',
+        [PASSWORD]: '',
+    };
+    const [values, setValues] = useState<SavePassType>(initialValue);
+
+    const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setValues((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    }, []);
+
+    const handleFormSubmit = useCallback(async () => {
+        try {
+            const res = await dispatch(savePassword({ ...values }));
+            if (res?.type == 'passwords/savePassword/fulfilled') handleClose();
+        } catch (err) {
+            console.log(err);
+        }
+    }, [values]);
+
+    useEffect(() => {
+        setValues((prevState) => ({
+            ...prevState,
+            [PASSWORD]: password,
+        }));
+    }, [password]);
 
     return (
         <>
@@ -30,19 +66,40 @@ const SavePassModal = ({open , password, handleClose}:SavePassModalProps) => {
                 aria-describedby="alert-dialog-description"
                 sx={modalStyle}
             >
-                <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+                <DialogTitle sx={{ textAlign: 'center' }}>
+                    <p className="text-2xl">Save Password</p>
+                </DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        Let Google help apps determine location. This means sending anonymous location data to Google,
-                        even when no apps are running.
-                    </DialogContentText>
+                    <div className="flex justify-center mt-2">
+                        <div className="flex flex-col w-7/12">
+                            <StyledInput
+                                name={WEBSITE}
+                                value={values[WEBSITE]}
+                                onChange={handleInputChange}
+                                label="Website"
+                                type="website"
+                            />
+                            <StyledInput
+                                name={USERNAME}
+                                value={values[USERNAME]}
+                                onChange={handleInputChange}
+                                label="UserName"
+                                type="text"
+                            />
+                            <StyledInput
+                                name={PASSWORD}
+                                value={values[PASSWORD]}
+                                onChange={handleInputChange}
+                                label="Password"
+                                type="password"
+                            />
+                            <div className="grid grid-cols-2 gap-6 mt-4">
+                                <StyledButton type="cancel" label="Cancel" onClick={handleClose} />
+                                <StyledButton label="Save" onClick={handleFormSubmit} />
+                            </div>
+                        </div>
+                    </div>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Disagree</Button>
-                    <Button onClick={handleClose} autoFocus>
-                        Agree
-                    </Button>
-                </DialogActions>
             </Dialog>
         </>
     );
