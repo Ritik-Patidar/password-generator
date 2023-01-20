@@ -81,7 +81,7 @@ const PasswordGenerator = () => {
             password += chars.substring(randomNumber, randomNumber + 1);
         }
         setGeneratedPass(password);
-    }, [includesCases]);
+    }, [includesCases,characterLength]);
 
     const handlePasswordChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {

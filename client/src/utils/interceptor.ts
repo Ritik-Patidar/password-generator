@@ -32,7 +32,8 @@ export function interceptor() {
                     tokenService.updateToken(res.data);
                     return api(originalConfig);
                 } catch (err) {
-                    history.replace(RoutePaths.Login)
+                    tokenService.removeUser();
+                    history.replace(RoutePaths.Login);
                     return Promise.reject(err);
                 }
             }
