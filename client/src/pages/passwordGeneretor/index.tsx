@@ -36,7 +36,7 @@ const symbol = '!@#$%^&*()';
 
 const PasswordGenerator = () => {
     const history = useHistory();
-    const [characterLength, setCharacterLength] = useState<number>(8);
+    const [characterLength, setCharacterLength] = useState<number>(10);
     const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
     const [tooltip, settooltip] = useState({
         open: false,
