@@ -12,6 +12,8 @@ interface StyledInputProps {
     type?: string;
     label: string;
     value: any;
+    disabled?: boolean;
+    readOnly?: boolean;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 const inputTheme = {
@@ -44,7 +46,15 @@ const inputTheme = {
     },
 };
 
-const StyledInput = ({ name, type = 'text', label, value, onChange }: StyledInputProps) => {
+const StyledInput = ({
+    name,
+    type = 'text',
+    label,
+    value,
+    onChange,
+    disabled = false,
+    readOnly = false,
+}: StyledInputProps) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const handleClickShowPassword = useCallback(() => {
@@ -70,6 +80,8 @@ const StyledInput = ({ name, type = 'text', label, value, onChange }: StyledInpu
                             autoComplete: 'off',
                         }}
                         endAdornment={<InputAdornment position="end">@</InputAdornment>}
+                        disabled={disabled}
+                        readOnly={readOnly}
                     />
                 );
 
@@ -85,6 +97,8 @@ const StyledInput = ({ name, type = 'text', label, value, onChange }: StyledInpu
                         autoComplete="off"
                         disableUnderline={true}
                         endAdornment={<InputAdornment position="end">.com</InputAdornment>}
+                        disabled={disabled}
+                        readOnly={readOnly}
                     />
                 );
             case 'password':
@@ -98,6 +112,8 @@ const StyledInput = ({ name, type = 'text', label, value, onChange }: StyledInpu
                         sx={inputTheme}
                         disableUnderline={true}
                         autoComplete="off"
+                        disabled={disabled}
+                        readOnly={readOnly}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -125,6 +141,8 @@ const StyledInput = ({ name, type = 'text', label, value, onChange }: StyledInpu
                         autoComplete="off"
                         disableUnderline={true}
                         endAdornment={<InputAdornment position="end">Aa</InputAdornment>}
+                        disabled={disabled}
+                        readOnly={readOnly}
                     />
                 );
         }

@@ -17,7 +17,6 @@ export function interceptor() {
     api.interceptors.response.use(
         (response) => response,
         async (error) => {
-            console.log('interceptor ---> ', error);
             const originalConfig = error.config;
             const refreshToken = tokenService.getLocalRefreshToken();
             if (

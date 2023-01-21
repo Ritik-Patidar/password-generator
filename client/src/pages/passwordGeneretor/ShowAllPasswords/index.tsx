@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,10 +10,11 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
-import {VisibilityOff, Visibility} from '@mui/icons-material';
+import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllSavedPassword } from '../../../modules/reducers/passwordReducer';
 import { allSavedPasswords, isSavedPasswordLoading, totalSavedPasswords } from '../../../modules/selectors/passwords';
+import ShowPasswordModal from './showPasswordModal';
 interface HeadCell {
     disablePadding: boolean;
     id: string;
@@ -88,6 +89,18 @@ const ShowAllPasswords = () => {
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
+    const [showPass, setShowPass] = useState({
+        isOpen: false,
+        data: {},
+    });
+
+    const handleCloseShowPassModal = () => {
+        setShowPass({
+            isOpen: false,
+            data: {},
+        });
+    };
+
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
             const newSelected = allPasswords.map((n) => n.id);
@@ -135,7 +148,9 @@ const ShowAllPasswords = () => {
     return (
         <Box sx={{ width: '70%', margin: '0 auto' }}>
             <Paper sx={{ px: 3, mb: 0, borderRadius: '24px' }}>
-                {isLoading ? <p className="text-center text-xl p-10">Loading...</p> : allPasswords.length ? (
+                {isLoading ? (
+                    <p className="text-center text-xl p-10">Loading...</p>
+                ) : allPasswords.length ? (
                     <>
                         <TableContainer>
                             <Table
@@ -163,7 +178,7 @@ const ShowAllPasswords = () => {
                                                     tabIndex={-1}
                                                     key={row.id}
                                                     selected={isItemSelected}
-                                                    >
+                                                >
                                                     <TableCell padding="checkbox">
                                                         <Checkbox
                                                             onClick={(event) => handleClick(event, row.id)}
@@ -180,7 +195,13 @@ const ShowAllPasswords = () => {
                                                     <TableCell>{row.site}</TableCell>
                                                     <TableCell>{row.username}</TableCell>
                                                     <TableCell>********</TableCell>
-                                                    <TableCell><IconButton><Visibility /></IconButton></TableCell>
+                                                    <TableCell>
+                                                        <IconButton
+                                                            onClick={() => setShowPass({ isOpen: true, data: row })}
+                                                        >
+                                                            <Visibility />
+                                                        </IconButton>
+                                                    </TableCell>
                                                 </TableRow>
                                             );
                                         })}
@@ -210,6 +231,7 @@ const ShowAllPasswords = () => {
                     <p className="text-center text-xl p-10">No Data Found</p>
                 )}
             </Paper>
+            {showPass.isOpen ? <ShowPasswordModal modalData={showPass} handleClose={handleCloseShowPassModal} /> : null}
             {/* <FormControlLabel control={<Switch checked={dense} onChange={handleChangeDense} />} label="Dense padding" /> */}
         </Box>
     );

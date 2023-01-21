@@ -9,6 +9,9 @@ const SignUp = React.lazy(() => import('../pages/SignUp'));
 const NotFound = React.lazy(() => import('../pages/Page404'));
 const PasswordGenerator = React.lazy(() => import('../pages/passwordGeneretor'));
 const ShowAllPasswords = React.lazy(() => import('../pages/passwordGeneretor/ShowAllPasswords'));
+const HangMan = React.lazy(() => import('../pages/MiniGames/HangMan'));
+const TicTacToe = React.lazy(() => import('../pages/MiniGames/TicTacToe'));
+
 
 export interface IRouteProps extends RouteProps {
     guard?: Guardtypes;
@@ -49,6 +52,18 @@ const routes: IRouteProps[] = [
     {
         path: RoutePaths.ShowAllPasswords,
         component: ShowAllPasswords,
+        exact: true,
+        guard: Guardtypes.Private,
+    },
+    {
+        path: RoutePaths.HangMan,
+        component: HangMan,
+        exact: true,
+        guard: Guardtypes.Private,
+    },
+    {
+        path: RoutePaths.TicTacToe,
+        component: TicTacToe,
         exact: true,
         guard: Guardtypes.Private,
     },

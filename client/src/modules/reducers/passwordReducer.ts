@@ -39,11 +39,37 @@ export const savePassword: any = createAsyncThunk(
     },
 );
 
+export const updatePassword: any = createAsyncThunk(
+    'passwords/updatePassword',
+    async ({ data , id }: {data:SavePassType,id:string}, { rejectWithValue }) => {
+        try {
+            const res = await api.patch(`passwords/${id}`, data);
+            toast('Password Updated', { type: 'success' });
+            return res?.data;
+        } catch (error: any) {
+            toast(error.response.data.message, { type: 'error' });
+            return rejectWithValue(error.response.data.message);
+        }
+    },
+);
+
 export const getAllSavedPassword: any = createAsyncThunk(
-    'password/allSavedPassword',
+    'passwords/allSavedPassword',
     async ({},{ rejectWithValue }) => {
         try {
             const res = await api.get('passwords');
+            return res?.data;
+        } catch (error: any) {
+            return rejectWithValue(error.response.data.message);
+        }
+    },
+);
+
+export const showPassword: any = createAsyncThunk(
+    'passwords/showPassword',
+    async ({id}:{id:string},{ rejectWithValue }) => {
+        try {
+            const res = await api.get(`passwords/show-password/${id}`);
             return res?.data;
         } catch (error: any) {
             return rejectWithValue(error.response.data.message);

@@ -12,6 +12,8 @@ export enum RoutePaths {
     NotFound = '/*',
     PasswordGenerator = '/password-generator',
     ShowAllPasswords = '/all-passwords',
+    HangMan = '/hangman',
+    TicTacToe = '/tictactoe',
     
 }
 

@@ -9,16 +9,16 @@ export const cardDetails = [
 
     },
     {
-        title:"Title 2",
+        title:"Hangman",
         description:"",
-        routes:"",
+        routes: RoutePaths.HangMan,
         bgClass:"card-bg-2",
 
     },
     {
-        title:"Title 3",
+        title:"Tic Tac Toe",
         description:"",
-        routes:"",
+        routes: RoutePaths.TicTacToe,
         bgClass:"card-bg-3",
 
     },
