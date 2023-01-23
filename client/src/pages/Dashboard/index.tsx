@@ -11,7 +11,7 @@ const Dashboard = () => {
         <>
             
             <div className="mx-10 sm:mx-16 lg:mx-28 xl:mx-36">
-                <SearchBar />
+                <SearchBar className='w-full' />
                 <div className="mt-6">
                     <div className="w-full grid grid-rows-[9rem] grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-2 xl:gap-3">
                         {cardDetails?.map((properties, index) => (

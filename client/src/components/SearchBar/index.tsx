@@ -2,13 +2,16 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+interface SearchBarProps{
+    className?:string;
+}
 
-const SearchBar = () => {
+const SearchBar = ({className=''}:SearchBarProps) => {
     return (
         <TextField
             id="outlined-start-adornment"
             placeholder="Search anything..."
-            className="rounded-xl bg-primary-lighter"
+            className={`rounded-xl bg-primary-lighter ${className}`}
             sx={{
                 maxWidth: '40ch',
                 mt: 2,
