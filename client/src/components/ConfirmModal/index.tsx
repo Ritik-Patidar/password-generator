@@ -4,7 +4,7 @@ interface ConfirmModalProps {
     type: string;
 }
 
-const ConfirmModal = ({ type }: ConfirmModalProps) => {
+const ConfirmModal = ({ }: ConfirmModalProps) => {
     return <>ConfirmModal</>;
 };
 

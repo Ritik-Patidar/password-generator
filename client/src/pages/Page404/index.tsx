@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { RoutePaths } from '../../modules/consts/enum';
+import { useHistory } from 'react-router-dom';
 import './style.css';
 
 const Page404 = () => {

@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
-import { VisibilityOff, Visibility } from '@mui/icons-material';
+import { Visibility } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllSavedPassword } from '../../../modules/reducers/passwordReducer';
 import { allSavedPasswords, isSavedPasswordLoading, totalSavedPasswords } from '../../../modules/selectors/passwords';

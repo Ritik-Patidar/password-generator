@@ -1,7 +1,6 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import Button, { ButtonProps } from '@mui/material/Button';
-import googleIcon from '../../assets/icons/googleIcon.svg';
 import { ButtonBase } from '@mui/material';
 
 interface StyledButtonProps {
@@ -24,7 +23,7 @@ const CancelBtn = {
     color: '#fff',
 };
 
-export const CustomizedButton = styled(Button)<ButtonProps>(({ theme }) => ({
+export const CustomizedButton = styled(Button)<ButtonProps>(({ }) => ({
     color: '#FFF',
     backgroundColor: '#355BC0',
     '&:hover': {

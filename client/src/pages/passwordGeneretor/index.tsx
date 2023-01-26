@@ -38,6 +38,11 @@ const WEAK = 'Weak 😢';
 const MEDIUM = 'Medium 😄';
 const STRONG = 'Strong 😎';
 
+const strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})');
+const mediumPassword = new RegExp(
+    '((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))',
+);
+
 const showPasswordStrength = (strength: string) => {
     switch (strength) {
         case MEDIUM:
@@ -47,6 +52,21 @@ const showPasswordStrength = (strength: string) => {
         default:
             return <p className="text-red-700 font-semibold">{`${strength}`}</p>;
     }
+};
+
+const checkPasswordStrength = (password: string) => {
+    if (strongPassword.test(password)) return STRONG;
+    else if (mediumPassword.test(password)) return MEDIUM;
+    else return WEAK;
+};
+
+const getPassString = (upperCase: boolean, lowerCase: boolean, numbers: boolean, symbols: boolean) => {
+    let chars = '';
+    if (upperCase) chars += upperAlpa;
+    if (lowerCase) chars += lowerApla;
+    if (numbers) chars += digits;
+    if (symbols) chars += symbol;
+    return chars;
 };
 
 const PasswordGenerator = () => {
@@ -84,37 +104,27 @@ const PasswordGenerator = () => {
         [includesCases],
     );
 
-    const checkPasswordStrength = useCallback((password:string) => {
-        const strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})');
-        const mediumPassword = new RegExp(
-            '((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))',
-        );
-        if (strongPassword.test(password)) setPasswordStrength(STRONG);
-        else if (mediumPassword.test(password)) setPasswordStrength(MEDIUM);
-        else setPasswordStrength(WEAK);
-    }, [generatedPass, passwordStrength]);
-
     const generateRandomPass = useCallback(() => {
-        let chars = '';
-        if (includesCases.upperCase) chars += upperAlpa;
-        if (includesCases.lowerCase) chars += lowerApla;
-        if (includesCases.numbers) chars += digits;
-        if (includesCases.symbols) chars += symbol;
-
+        const chars = getPassString(
+            includesCases.upperCase,
+            includesCases.lowerCase,
+            includesCases.numbers,
+            includesCases.symbols,
+        );
         let password = '';
         for (let i = 0; i <= characterLength - 1; i++) {
             const randomNumber = Math.floor(Math.random() * chars.length);
             password += chars.substring(randomNumber, randomNumber + 1);
         }
         setGeneratedPass(password);
-        checkPasswordStrength(password);
+        setPasswordStrength(checkPasswordStrength(password));
     }, [includesCases, characterLength]);
 
     const handlePasswordChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             const { value } = e.target;
             setGeneratedPass(value);
-            checkPasswordStrength(value);
+            setPasswordStrength(checkPasswordStrength(value));
         },
         [generatedPass, passwordStrength],
     );

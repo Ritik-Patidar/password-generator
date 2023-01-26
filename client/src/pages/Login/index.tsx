@@ -1,8 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { login, SignInType } from '../../modules/reducers/authReducer';
-import { isAuthLoading } from '../../modules/selectors/auth';
 import loginImg from '../../assets/images/loginImg.svg';
 import { CustomizedButton } from '../../components/Button';
 import googleIcon from '../../assets/icons/googleIcon.svg';
@@ -18,7 +17,6 @@ const GoogleIcon = () => {
 };
 
 const Login = () => {
-    const isLoading = useSelector(isAuthLoading);
     const dispatch = useDispatch();
 
     const EMAIL = 'email';

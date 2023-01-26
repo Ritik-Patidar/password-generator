@@ -2,14 +2,10 @@ import React from 'react';
 import SearchBar from '../../components/SearchBar';
 import Card from './card';
 import { cardDetails } from './data';
-import {useHistory} from 'react-router-dom';
 
 const Dashboard = () => {
-    const history = useHistory() ;
-
     return (
         <>
-            
             <div className="mx-10 sm:mx-16 lg:mx-28 xl:mx-36">
                 <SearchBar className='w-full' />
                 <div className="mt-6">

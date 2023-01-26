@@ -7,26 +7,6 @@ import { CustomizedButton } from '../../components/Button';
 import { RoutePaths } from '../../modules/consts/enum';
 import StyledInput from '../../components/StyledInput';
 
-const inputTheme = {
-    backgroundColor: '#FFF',
-    borderRadius: '10px',
-    borderBottom: 'none',
-    '& .MuiInputBase-root , .MuiFilledInput-root': {
-        backgroundColor: '#FFF',
-        borderRadius: '10px',
-        borderBottom: 'none',
-        border: 'none',
-    },
-    '&:hover': {
-        backgroundColor: '#FFF',
-        borderBottom: 'none',
-    },
-    '&.Mui-focused': {
-        backgroundColor: '#FFF',
-        borderBottom: 'none',
-    },
-};
-
 const SignUp = () => {
     const dispatch = useDispatch();
 
@@ -43,20 +23,6 @@ const SignUp = () => {
 
     const [values, setValues] = useState<SignUpType>({ ...initialValue });
     const [confirmPassword, setConfirmPassword] = useState<string>('');
-    const [showPassword, setShowPassword] = useState<boolean>(false);
-    const [showCPassword, setShowCPassword] = useState<boolean>(false);
-
-    const handleClickShowPassword = useCallback(() => {
-        setShowPassword(!showPassword);
-    }, [showPassword]);
-
-    const handleClickShowCPassword = useCallback(() => {
-        setShowCPassword(!showCPassword);
-    }, [showCPassword]);
-
-    const handleMouseDownPassword = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    }, []);
 
     const handleInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
