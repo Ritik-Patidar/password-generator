@@ -112,9 +112,9 @@ const PasswordGenerator = () => {
     return (
         <>
             <div className="flex justify-center items-center">
-                <div className="flex flex-col justify-between items-center bg-primary-lighter p-8 w-1/3 rounded-3xl gap-y-6">
-                    <p className="text-4xl">Password Generator</p>
-                    <div className="w-9/12 flex flex-col gap-y-4">
+                <div className="flex flex-col justify-between items-center bg-primary-lighter py-8 xl:w-1/3 lg:w-2/5 md:w-3/5 sm:w-9/12 xs:w-11/12 w-full my-2 mx-4 rounded-3xl gap-y-6">
+                    <p className="xs:text-4xl xxs:text-3xl text-2xl">Password Generator</p>
+                    <div className="sm:w-9/12 flex flex-col gap-y-4">
                         <div className="flex justify-between items-center px-1 rounded-3xl border border-br bg-white w-full">
                             <input
                                 className="px-3 py-2 outline-none bg-none rounded-3xl w-full"

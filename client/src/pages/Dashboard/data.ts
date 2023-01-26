@@ -23,23 +23,23 @@ export const cardDetails = [
 
     },
     {
-        title:"Title 4",
+        title:"Rock Paper Scissor",
         description:"",
-        routes:"",
+        routes: RoutePaths.RockPaperScissor,
         bgClass:"card-bg-4",
 
     },
     {
         title:"Title 5",
         description:"",
-        routes:"",
+        routes:RoutePaths.NotFound,
         bgClass:"card-bg-5",
 
     },
     {
         title:"Title 6",
         description:"",
-        routes:"",
+        routes:RoutePaths.NotFound,
         bgClass:"card-bg-6",
 
     },

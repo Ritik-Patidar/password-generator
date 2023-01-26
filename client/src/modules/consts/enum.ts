@@ -13,7 +13,8 @@ export enum RoutePaths {
     PasswordGenerator = '/password-generator',
     ShowAllPasswords = '/all-passwords',
     HangMan = '/hangman',
-    TicTacToe = '/tictactoe',
+    TicTacToe = '/tic-tac-toe',
+    RockPaperScissor = '/rock-paper-scissor',
     
 }
 

@@ -2,10 +2,10 @@
 
 html {
     /* background-color: black; */
-    color: white;
-    overflow: hidden;
+    /* color: white; */
+    /* overflow: hidden; */
     height: 100%;
-    font-size: medium;
+    /* font-size: medium; */
 }
 .linkToHome{
   z-index: 10000;

@@ -11,6 +11,7 @@ const PasswordGenerator = React.lazy(() => import('../pages/passwordGeneretor'))
 const ShowAllPasswords = React.lazy(() => import('../pages/passwordGeneretor/ShowAllPasswords'));
 const HangMan = React.lazy(() => import('../pages/MiniGames/HangMan'));
 const TicTacToe = React.lazy(() => import('../pages/MiniGames/TicTacToe'));
+const RockPaperScissor = React.lazy(() => import('../pages/MiniGames/RockPaperScissor'));
 
 
 export interface IRouteProps extends RouteProps {
@@ -64,6 +65,12 @@ const routes: IRouteProps[] = [
     {
         path: RoutePaths.TicTacToe,
         component: TicTacToe,
+        exact: true,
+        guard: Guardtypes.Private,
+    },
+    {
+        path: RoutePaths.RockPaperScissor,
+        component: RockPaperScissor,
         exact: true,
         guard: Guardtypes.Private,
     },

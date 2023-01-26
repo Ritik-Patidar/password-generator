@@ -7,7 +7,7 @@ const Page404 = () => {
     const history = useHistory();
     return (
         <>
-            <div className="errorBody">
+            <div className="errorBody NotFound-body">
                 <div className="error">
                     <div className="wrap">
                         
