@@ -32,11 +32,27 @@ const generateBtn = {
 const digits = '0123456789';
 const upperAlpa = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const lowerApla = 'abcdefghijklmnopqrstuvwxyz';
-const symbol = '!@#$%^&*()';
+const symbol = '!@#$%^&*()!@#$%^&*()';
+
+const WEAK = 'Weak 😢';
+const MEDIUM = 'Medium 😄';
+const STRONG = 'Strong 😎';
+
+const showPasswordStrength = (strength: string) => {
+    switch (strength) {
+        case MEDIUM:
+            return <p className="text-orange-500 font-semibold">{`${strength}`}</p>;
+        case STRONG:
+            return <p className="text-green-700 font-semibold">{`${strength}`}</p>;
+        default:
+            return <p className="text-red-700 font-semibold">{`${strength}`}</p>;
+    }
+};
 
 const PasswordGenerator = () => {
     const history = useHistory();
     const [characterLength, setCharacterLength] = useState<number>(10);
+    const [passwordStrength, setPasswordStrength] = useState<string>(WEAK);
     const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
     const [tooltip, settooltip] = useState({
         open: false,
@@ -68,6 +84,16 @@ const PasswordGenerator = () => {
         [includesCases],
     );
 
+    const checkPasswordStrength = useCallback((password:string) => {
+        const strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})');
+        const mediumPassword = new RegExp(
+            '((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))',
+        );
+        if (strongPassword.test(password)) setPasswordStrength(STRONG);
+        else if (mediumPassword.test(password)) setPasswordStrength(MEDIUM);
+        else setPasswordStrength(WEAK);
+    }, [generatedPass, passwordStrength]);
+
     const generateRandomPass = useCallback(() => {
         let chars = '';
         if (includesCases.upperCase) chars += upperAlpa;
@@ -81,13 +107,16 @@ const PasswordGenerator = () => {
             password += chars.substring(randomNumber, randomNumber + 1);
         }
         setGeneratedPass(password);
-    }, [includesCases,characterLength]);
+        checkPasswordStrength(password);
+    }, [includesCases, characterLength]);
 
     const handlePasswordChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            setGeneratedPass(e.target.value);
+            const { value } = e.target;
+            setGeneratedPass(value);
+            checkPasswordStrength(value);
         },
-        [generatedPass],
+        [generatedPass, passwordStrength],
     );
 
     const handleOnTooltipClose = useCallback(() => {
@@ -213,7 +242,7 @@ const PasswordGenerator = () => {
                             <div className="px-2 w-full">
                                 <div className="flex justify-between px-6 py-2 rounded-3xl bg-primary-lighter">
                                     <div>Strength :</div>
-                                    <div className="text-green-700 font-semibold">Strong 😎</div>
+                                    <div>{showPasswordStrength(passwordStrength)}</div>
                                 </div>
                             </div>
                             <div className="mt-2 px-2 w-full">
@@ -237,7 +266,9 @@ const PasswordGenerator = () => {
                             <ButtonBase onClick={() => setIsSaveModalOpen(true)} sx={btn}>
                                 Save Password
                             </ButtonBase>
-                            <ButtonBase onClick={() => history.push(RoutePaths.ShowAllPasswords)} sx={btn}>See All Password</ButtonBase>
+                            <ButtonBase onClick={() => history.push(RoutePaths.ShowAllPasswords)} sx={btn}>
+                                See All Password
+                            </ButtonBase>
                         </div>
                     </div>
                 </div>
