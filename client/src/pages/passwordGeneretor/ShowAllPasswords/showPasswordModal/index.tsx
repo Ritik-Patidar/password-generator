@@ -76,6 +76,7 @@ const ShowPasswordModal = ({ modalData, handleClose }: ShowPasswordModalProps) =
             [WEBSITE]: data.site,
             [USERNAME]: data.username,
         }));
+        setIsEditable(modalData.isEdit);
         fetchPassword(data.id).then((password) => {
             setValues((pre) => ({
                 ...pre,

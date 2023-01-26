@@ -29,18 +29,18 @@ export const cardDetails = [
         bgClass:"card-bg-4",
 
     },
-    {
-        title:"Title 5",
-        description:"",
-        routes:RoutePaths.NotFound,
-        bgClass:"card-bg-5",
+    // {
+    //     title:"Title 5",
+    //     description:"",
+    //     routes:RoutePaths.NotFound,
+    //     bgClass:"card-bg-5",
 
-    },
-    {
-        title:"Title 6",
-        description:"",
-        routes:RoutePaths.NotFound,
-        bgClass:"card-bg-6",
+    // },
+    // {
+    //     title:"Title 6",
+    //     description:"",
+    //     routes:RoutePaths.NotFound,
+    //     bgClass:"card-bg-6",
 
-    },
+    // },
 ]

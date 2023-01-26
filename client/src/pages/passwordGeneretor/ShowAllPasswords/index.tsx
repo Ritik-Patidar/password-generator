@@ -10,10 +10,13 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import { Visibility } from '@mui/icons-material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllSavedPassword } from '../../../modules/reducers/passwordReducer';
-import { allSavedPasswords, isSavedPasswordLoading, totalSavedPasswords } from '../../../modules/selectors/passwords';
+import { allSavedPasswords, isSavedPasswordLoading } from '../../../modules/selectors/passwords';
 import ShowPasswordModal from './showPasswordModal';
 interface HeadCell {
     disablePadding: boolean;
@@ -82,22 +85,42 @@ const ShowAllPasswords = () => {
     const dispatch = useDispatch();
     const isLoading = useSelector(isSavedPasswordLoading);
     const allPasswords = useSelector(allSavedPasswords);
-    const totalPasswords = useSelector(totalSavedPasswords);
 
     const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [page, setPage] = React.useState(0);
-    const [dense, setDense] = React.useState(false);
+    const [dense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     const [showPass, setShowPass] = useState({
         isOpen: false,
         data: {},
+        isEdit:false
     });
+
+    const [anchorEl, setAnchorEl] = React.useState<any>({
+        data:{},
+        El:null
+    });
+
+    const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>,rowData:any) => {
+        setAnchorEl({
+            data:rowData,
+            El:event.currentTarget
+        });
+    };
+    const handleClose = () => {
+        setAnchorEl({
+            data:{},
+            El:null
+        });
+    };
+
 
     const handleCloseShowPassModal = () => {
         setShowPass({
             isOpen: false,
             data: {},
+            isEdit:false
         });
     };
 
@@ -195,12 +218,31 @@ const ShowAllPasswords = () => {
                                                     <TableCell>{row.site}</TableCell>
                                                     <TableCell>{row.username}</TableCell>
                                                     <TableCell>********</TableCell>
-                                                    <TableCell>
+                                                    <TableCell align="center">
                                                         <IconButton
-                                                            onClick={() => setShowPass({ isOpen: true, data: row })}
+                                                            onClick={() => setShowPass({ isOpen: true, data: row, isEdit:false })}
                                                         >
                                                             <Visibility />
                                                         </IconButton>
+                                                        <IconButton onClick={(e) => handleMenuClick(e,row)} >
+                                                            <MoreVertIcon />
+                                                        </IconButton>
+                                                        <Menu
+                                                            id="basic-menu"
+                                                            anchorEl={anchorEl.El}
+                                                            open={Boolean(anchorEl.El)}
+                                                            onClose={handleClose}
+                                                            sx={{'& .MuiPaper-root':{
+                                                                boxShadow:'0px 2px 1px -1px rgb(0 0 0 / 20%)',
+                                                                border:"1px solid gray"
+                                                            }}}
+                                                        >
+                                                            <MenuItem onClick={() => {
+                                                                setShowPass({ isOpen: true, data: anchorEl.data, isEdit: true });
+                                                                handleClose();
+                                                            }}>Edit</MenuItem>
+                                                            <MenuItem onClick={handleClose}>Delete</MenuItem>
+                                                        </Menu>
                                                     </TableCell>
                                                 </TableRow>
                                             );
