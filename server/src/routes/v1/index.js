@@ -23,7 +23,7 @@ const defaultRoutes = [
   {
     path: '/docs',
     route: docsRoute,
-  }
+  },
 ];
 
 const devRoutes = [

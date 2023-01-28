@@ -17,9 +17,9 @@ router
   .patch(auth('managePassword'), validate(savedPasswordValidation.updatePassword), savedPasswordController.updatePassword)
   .delete(auth('managePassword'), validate(savedPasswordValidation.deletePassword), savedPasswordController.deletePassword);
 
-  router
+router
   .route('/show-password/:passwordId')
-  .get(auth('getPassword'), validate(savedPasswordValidation.showPassword), savedPasswordController.showPassword)
+  .get(auth('getPassword'), validate(savedPasswordValidation.showPassword), savedPasswordController.showPassword);
 
 module.exports = router;
 
@@ -34,7 +34,7 @@ module.exports = router;
  * @swagger
  * /passwords:
  *   post:
- *     summary: Save a Password 
+ *     summary: Save a Password
  *     description: admins and user can save password.
  *     tags: [Saved Passwords]
  *     security:

@@ -28,4 +28,4 @@ notesSchema.plugin(paginate);
 
 const Notes = mongoose.model('Notes', notesSchema);
 
-module.exports = Notes ;
+module.exports = Notes;

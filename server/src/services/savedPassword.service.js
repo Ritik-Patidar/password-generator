@@ -2,33 +2,29 @@ const httpStatus = require('http-status');
 const { SavedPassword } = require('../models');
 const ApiError = require('../utils/ApiError');
 
-
 const createPassword = async (data) => {
   return SavedPassword.create(data);
 };
 
-const queryAllPasswords = async (filter, options) => {
+const queryAllPasswords = async (filter) => {
   // const passwords = await SavedPassword.paginate(filter, options);
   const passwords = await SavedPassword.find(filter);
   // return passwords
   return {
-    results : passwords,
-    totalResults: passwords.length
+    results: passwords,
+    totalResults: passwords.length,
   };
 };
 
 const getPasswordById = async (id) => {
-  const password = await SavedPassword.findById(id);
   return SavedPassword.findById(id);
 };
 
 const showPasswordById = async (id) => {
   const password = await SavedPassword.findById(id);
-  //! return the decrypted password 
-  console.log("------>",password);
-  return await password.showPassword();
+  //! return the decrypted password
+  return password.showPassword();
 };
-
 
 const updatePasswordById = async (id, updateBody) => {
   const password = await getPasswordById(id);
