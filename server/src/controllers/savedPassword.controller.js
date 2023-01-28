@@ -7,18 +7,16 @@ const { savedPasswordService } = require('../services');
 const createPassword = catchAsync(async (req, res) => {
   const data = {
     ...req.body,
-    userId: req.user._id
-  }
+    userId: req.user._id,
+  };
   const password = await savedPasswordService.createPassword(data);
   res.status(httpStatus.CREATED).send(password);
 });
 
 const getAllPasswords = catchAsync(async (req, res) => {
-  console.log("---> ",req.user)
   const filter = pick(req.query, ['username', 'site']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  console.log("filter -->", { userId:req.user._id,...filter});
-  const result = await savedPasswordService.queryAllPasswords({ userId:req.user._id,...filter}, options,req.user._id);
+  const result = await savedPasswordService.queryAllPasswords({ userId: req.user._id, ...filter }, options, req.user._id);
   res.send(result);
 });
 
