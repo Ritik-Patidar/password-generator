@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { StyledButton } from '../../../../components/Button';
 import StyledInput from '../../../../components/StyledInput';
 import { Dialog, DialogTitle, DialogContent } from '@mui/material';
-import { savePassword, SavePassType, showPassword, updatePassword } from '../../../../modules/reducers/passwordReducer';
+import { SavePassType, showPassword, updatePassword } from '../../../../modules/reducers/passwordReducer';
 import { useDispatch } from 'react-redux';
 interface ShowPasswordModalProps {
     modalData: any;
