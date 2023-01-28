@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAuthUser } from '../../modules/selectors/auth';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
@@ -9,6 +9,21 @@ const Header = () => {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const user = useSelector(getAuthUser);
+
+    const ref = useRef<HTMLDivElement>(null);
+
+    const handleClickOutside = (event: any) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+            setIsOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside, true);
+        return () => {
+            document.removeEventListener('click', handleClickOutside, true);
+        };
+    }, []);
 
     const onLogout = () => dispatch(logOut());
 
@@ -74,59 +89,65 @@ const Header = () => {
             </div>
 
             {isOpen && (
-                <div className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden z-10">
-                    <div className="rounded-lg bg-primary-lighter shadow-lg ring-1 ring-black ring-opacity-5">
-                        <div className="px-5 pt-5 pb-6">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <img
-                                        className="h-12 w-auto"
-                                        src={`${process.env.PUBLIC_URL}/assets/avatars/ssAvatar.png`}
-                                        alt="Your Company"
-                                    />
-                                </div>
-                                <div className="-mr-2">
-                                    <button
-                                        onClick={() => setIsOpen(false)}
-                                        type="button"
-                                        className="inline-flex items-center justify-center rounded-md bg-primary-lighter p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-                                    >
-                                        <span className="sr-only">Close menu</span>
-
-                                        <svg
-                                            className="h-6 w-6"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="1.5"
-                                            stroke="currentColor"
-                                            aria-hidden="true"
+                <>
+                    <div className='absolute h-screen w-full z-10 bg-primary-dark opacity-30' ></div>
+                    <div
+                        ref={ref}
+                        className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden z-20"
+                    >
+                        <div className="rounded-lg bg-primary-lighter shadow-lg ring-1 ring-black ring-opacity-5">
+                            <div className="px-5 pt-5 pb-6">
+                                <div className="flex items-center justify-between">
+                                    <div>
+                                        <img
+                                            className="h-12 w-auto"
+                                            src={`${process.env.PUBLIC_URL}/assets/avatars/ssAvatar.png`}
+                                            alt="Your Company"
+                                        />
+                                    </div>
+                                    <div className="-mr-2">
+                                        <button
+                                            onClick={() => setIsOpen(false)}
+                                            type="button"
+                                            className="inline-flex items-center justify-center rounded-md bg-primary-lighter p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                                         >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M6 18L18 6M6 6l12 12"
-                                            />
-                                        </svg>
-                                    </button>
+                                            <span className="sr-only">Close menu</span>
+
+                                            <svg
+                                                className="h-6 w-6"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth="1.5"
+                                                stroke="currentColor"
+                                                aria-hidden="true"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M6 18L18 6M6 6l12 12"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="space-y-6 py-6 px-5">
-                            <div>
-                                <p className="my-6 text-center text-base font-medium text-gray-500">
-                                    Logged in as : <span className="text-black">{user?.user?.email}</span>
-                                </p>
-                                <a
-                                    onClick={onLogout}
-                                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                                >
-                                    Log Out <LogoutRoundedIcon sx={{ ml: 1 }} />
-                                </a>
+                            <div className="space-y-6 py-6 px-5">
+                                <div>
+                                    <p className="my-6 text-center text-base font-medium text-gray-500">
+                                        Logged in as : <span className="text-black">{user?.user?.email}</span>
+                                    </p>
+                                    <a
+                                        onClick={onLogout}
+                                        className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                                    >
+                                        Log Out <LogoutRoundedIcon sx={{ ml: 1 }} />
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </>
             )}
         </div>
     );

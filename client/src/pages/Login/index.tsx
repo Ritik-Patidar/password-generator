@@ -49,12 +49,12 @@ const Login = () => {
 
     return (
         <div className="h-screen flex justify-center items-center">
-            <div className=" w-4/5 lg:w-3/5 h-4/5 flex">
-                <div className="bg-[#030F1B] h-full w-full flex items-center justify-center rounded-l-3xl">
+            <div className="w-4/5 lg:w-3/5 h-4/5 flex">
+                <div className="bg-[#030F1B] h-full w-full hidden md:flex items-center justify-center rounded-l-3xl">
                     <img className="object-contain" src={loginImg} alt="" />
                 </div>
-                <div className="bg-[#D9D9D9] h-full w-full rounded-r-3xl text-black">
-                    <div className="h-full w-4/6 flex flex-col justify-around mx-auto">
+                <div className="bg-[#D9D9D9] h-full w-full rounded-3xl md:rounded-l-none md:rounded-r-3xl text-black">
+                    <div className="h-full w-11/12 xxs:w-10/12 xs:w-4/6 flex flex-col justify-around mx-auto">
                         <p className="text-3xl text-center my-6">Hello Again!</p>
                         <div className="flex flex-col justify-between">
                             <StyledInput
@@ -83,7 +83,7 @@ const Login = () => {
                                 Sign in with Google
                             </CustomizedButton>
                         </div>
-                        <p className="text-center text-lg my-4">
+                        <p className="text-center text-base xs:text-lg my-4">
                             Don’t have account yet?{' '}
                             <Link to={RoutePaths.SignUp} className="text-[#355BC0] cursor-pointer">
                                 Sign Up

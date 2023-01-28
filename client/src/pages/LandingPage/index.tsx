@@ -42,12 +42,12 @@ const LandingPage = () => {
                     </Button>
                 </div>
             </div>
-            <div className="flex items-center">
+            <div className="flex flex-col xs:flex-row items-center">
                 <div className="flex-1">
                     <img className='flex-1' src={LandingPageImg} alt="" />
                 </div>
                 <div className="flex-1 ">
-                    <p className='text-white text-right mr-10' style={{ fontSize:"5vw" }}>
+                    <p className='text-white text-right mr-10 text-[10vw] xxs:text-[8vw] xs:text-[5vw]' >
                         Discover{' '}
                         <b>
                             the <br />
@@ -58,7 +58,7 @@ const LandingPage = () => {
             </div>
 
             <div className="">
-                <div className="grid grid-cols-4 h-60 mx-16 mb-16 mt-8">
+                <div className="grid grid-cols-4 xs:h-60 mx-16 mb-16 mt-8">
                     <div className="bg-[#313EF7] rounded-l-3xl" >
 
                     </div>
