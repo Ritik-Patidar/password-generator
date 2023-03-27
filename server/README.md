@@ -21,7 +21,7 @@ If you would still prefer to do the installation manually, follow these steps:
 Clone the repo:
 
 ```bash
-git clone https://github.com/Ritik-Patidar/ToolsApp.git
+git clone https://github.com/Ritik-Patidar/password-generator.git
 ```
 
 Install the dependencies:
@@ -62,7 +62,7 @@ The environment variables can be found and modified in the `.env` file. They com
 PORT=3000
 
 # URL of the Mongo DB
-MONGODB_URL=mongodb://127.0.0.1:27017/ToolsApp
+MONGODB_URL=mongodb://127.0.0.1:27017/password-generator
 
 # JWT
 # JWT secret key
