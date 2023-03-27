@@ -4,17 +4,8 @@ import { Link } from 'react-router-dom';
 import { login, SignInType } from '../../modules/reducers/authReducer';
 import loginImg from '../../assets/images/loginImg.svg';
 import { CustomizedButton } from '../../components/Button';
-import googleIcon from '../../assets/icons/googleIcon.svg';
 import { RoutePaths } from '../../modules/consts/enum';
 import StyledInput from '../../components/StyledInput';
-
-const GoogleIcon = () => {
-    return (
-        <div className="bg-white rounded-md m-0">
-            <img src={googleIcon} />
-        </div>
-    );
-};
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -77,11 +68,7 @@ const Login = () => {
                             <CustomizedButton sx={{ py: 1.5 }} variant="contained" onClick={handleFormSubmit}>
                                 Sign In
                             </CustomizedButton>
-                            <p className="text-center text-lg my-2">OR</p>
-
-                            <CustomizedButton sx={{ py: 0.4 }} startIcon={<GoogleIcon />} variant="contained">
-                                Sign in with Google
-                            </CustomizedButton>
+                            
                         </div>
                         <p className="text-center text-base xs:text-lg my-4">
                             Don’t have account yet?{' '}
