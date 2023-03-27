@@ -4,6 +4,7 @@ import { getAuthUser } from '../../modules/selectors/auth';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import Button from '@mui/material/Button';
 import { logOut } from '../../modules/reducers/authReducer';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -32,14 +33,14 @@ const Header = () => {
             <div className="mx-auto max-w-7xl px-4 sm:px-6">
                 <div className="flex items-center justify-between py-6 md:justify-start md:space-x-10">
                     <div className="flex justify-start lg:w-0 lg:flex-1">
-                        <a href="#">
+                        <Link to="/" >
                             <span className="sr-only">Your Company</span>
                             <img
                                 className="h-8 w-auto sm:h-12"
                                 src={`${process.env.PUBLIC_URL}/assets/avatars/ssAvatar.png`}
-                                alt=""
+                                alt="Profile-Image"
                             />
-                        </a>
+                        </Link>
                     </div>
                     <div className="-my-2 -mr-2 md:hidden">
                         <button
@@ -102,7 +103,7 @@ const Header = () => {
                                         <img
                                             className="h-12 w-auto"
                                             src={`${process.env.PUBLIC_URL}/assets/avatars/ssAvatar.png`}
-                                            alt="Your Company"
+                                            alt="Profile-Image"
                                         />
                                     </div>
                                     <div className="-mr-2">
