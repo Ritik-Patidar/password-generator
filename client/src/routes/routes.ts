@@ -2,16 +2,11 @@ import React from 'react';
 import { RouteProps } from 'react-router-dom';
 import { Guardtypes, RoutePaths } from '../modules/consts/enum';
 
-const LandingPage = React.lazy(() => import('../pages/LandingPage'));
-const Dashboard = React.lazy(() => import('../pages/Dashboard'));
 const Login = React.lazy(() => import('../pages/Login'));
 const SignUp = React.lazy(() => import('../pages/SignUp'));
 const NotFound = React.lazy(() => import('../pages/Page404'));
 const PasswordGenerator = React.lazy(() => import('../pages/passwordGeneretor'));
 const ShowAllPasswords = React.lazy(() => import('../pages/passwordGeneretor/ShowAllPasswords'));
-const HangMan = React.lazy(() => import('../pages/MiniGames/HangMan'));
-const TicTacToe = React.lazy(() => import('../pages/MiniGames/TicTacToe'));
-const RockPaperScissor = React.lazy(() => import('../pages/MiniGames/RockPaperScissor'));
 
 
 export interface IRouteProps extends RouteProps {
@@ -20,12 +15,6 @@ export interface IRouteProps extends RouteProps {
 }
 
 const routes: IRouteProps[] = [
-    {
-        path: RoutePaths.LandingPage,
-        component: LandingPage,
-        exact: true,
-        guard: Guardtypes.Public,
-    },
     {
         path: RoutePaths.Login,
         component: Login,
@@ -39,12 +28,6 @@ const routes: IRouteProps[] = [
         guard: Guardtypes.Auth,
     },
     {
-        path: RoutePaths.Dashboard,
-        component: Dashboard,
-        exact: true,
-        guard: Guardtypes.Private,
-    },
-    {
         path: RoutePaths.PasswordGenerator,
         component: PasswordGenerator,
         exact: true,
@@ -53,24 +36,6 @@ const routes: IRouteProps[] = [
     {
         path: RoutePaths.ShowAllPasswords,
         component: ShowAllPasswords,
-        exact: true,
-        guard: Guardtypes.Private,
-    },
-    {
-        path: RoutePaths.HangMan,
-        component: HangMan,
-        exact: true,
-        guard: Guardtypes.Private,
-    },
-    {
-        path: RoutePaths.TicTacToe,
-        component: TicTacToe,
-        exact: true,
-        guard: Guardtypes.Private,
-    },
-    {
-        path: RoutePaths.RockPaperScissor,
-        component: RockPaperScissor,
         exact: true,
         guard: Guardtypes.Private,
     },

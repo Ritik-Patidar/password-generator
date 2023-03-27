@@ -7,15 +7,9 @@ export enum Guardtypes {
 export enum RoutePaths {
     Login = '/login',
     SignUp = '/signup',
-    LandingPage = '/',
-    Dashboard = '/home',
     NotFound = '/*',
-    PasswordGenerator = '/password-generator',
+    PasswordGenerator = '/',
     ShowAllPasswords = '/all-passwords',
-    HangMan = '/hangman',
-    TicTacToe = '/tic-tac-toe',
-    RockPaperScissor = '/rock-paper-scissor',
-    
 }
 
 export enum AuthKeys {

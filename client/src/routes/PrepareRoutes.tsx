@@ -33,7 +33,7 @@ const PrepareRoutes = () => {
             case Guardtypes.Public:
                 return <routeProps.component />;
             default:
-                if (window.location.pathname === '/') return <Redirect to={RoutePaths.Dashboard} />;
+                if (window.location.pathname === '/') return <Redirect to={RoutePaths.PasswordGenerator} />;
                 return <routeProps.component />;
         }
     };

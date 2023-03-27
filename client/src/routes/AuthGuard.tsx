@@ -7,7 +7,7 @@ import { getIsAuth } from '../modules/selectors/auth';
 const AuthGuard = ({ children }: { children: JSX.Element }) => {
     const isAuth = useSelector(getIsAuth);
 
-    return isAuth ? <Redirect to={RoutePaths.Dashboard} /> : children;
+    return isAuth ? <Redirect to={RoutePaths.PasswordGenerator} /> : children;
 };
 
 export default AuthGuard;

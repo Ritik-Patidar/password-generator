@@ -9,7 +9,7 @@ function Layout(props: PropsWithChildren<any>) {
     return (
         <>
             <ErrorBoundary>
-                { location.pathname === '/' ? <></> : <Header /> }
+                { location.pathname === '/' ? <Header /> : <></> }
                 <Suspense fallback={<LoadingSpinner withcoverbg="true" position="center" />}>
                     {props.children}
                 </Suspense>
