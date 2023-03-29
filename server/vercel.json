@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name":"major",
+    "name":"Password-Generator",
     "builds": [
       {
         "src": "src/index.js",
