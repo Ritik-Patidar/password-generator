@@ -106,7 +106,7 @@ const StyledInput = ({
                     <FilledInput
                         id="outlined-basic"
                         type={showPassword ? 'text' : 'password'}
-                        name="password"
+                        name={name}
                         value={value}
                         onChange={onChange}
                         sx={inputTheme}
