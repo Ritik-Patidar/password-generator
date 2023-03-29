@@ -87,7 +87,9 @@ const authSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(getAllSavedPassword.rejected, (state) => {
-                state = initialState;
+                state.isLoading = initialState.isLoading,
+                state.totalResults = initialState.totalResults,
+                state.savedPasswords = initialState.savedPasswords
             })
             .addCase(getAllSavedPassword.fulfilled, (state, { payload }) => {
                 state.isLoading = false;
